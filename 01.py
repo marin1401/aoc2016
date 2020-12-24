@@ -11,44 +11,44 @@ y = 0
 path = [] #for part 2
 for instruction in instructions:
     steps = int(instruction[1:])
-    if instruction[0] is 'L':
-        if direction is 'N':
+    if instruction[0] == 'L':
+        if direction == 'N':
             for i in range(steps):
                 path.append((x-i, y))
             x -= steps
             direction = 'W'
-        elif direction is 'S':
+        elif direction == 'S':
             for i in range(steps):
                 path.append((x+i, y))
             x += steps
             direction = 'E'
-        elif direction is 'W':
+        elif direction == 'W':
             for i in range(steps):
                 path.append((x, y-i))
             y -= steps
             direction = 'S'
-        elif direction is 'E':
+        elif direction == 'E':
             for i in range(steps):
                 path.append((x, y+i))
             y += steps
             direction = 'N'
     else:
-        if direction is 'N':
+        if direction == 'N':
             for i in range(steps):
                 path.append((x+i, y))
             x += steps
             direction = 'E'
-        elif direction is 'S':
+        elif direction == 'S':
             for i in range(steps):
                 path.append((x-i, y))
             x -= steps
             direction = 'W'
-        elif direction is 'W':
+        elif direction == 'W':
             for i in range(steps):
                 path.append((x, y+i))
             y += steps
             direction = 'N'
-        elif direction is 'E':
+        elif direction == 'E':
             for i in range(steps):
                 path.append((x, y-i))
             y -= steps
