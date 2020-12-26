@@ -73,6 +73,7 @@ print(code)
 #Part 2
 
 code = ''
+key = 5
 for instruction in instructions:
     for direction in instruction:
         if key == 1:
