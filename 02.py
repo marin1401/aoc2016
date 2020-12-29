@@ -3,156 +3,41 @@
 with open('./02.txt') as myinput:
     instructions = myinput.readlines()
 
+keypad_1 = {i + 1: (i % 3 - 1, 1 + (i % 3 - i) // 3) for i in range(9)}
+
+keypad_2 = {                              1: (0,  2),
+                           2: (-1,  1),   3: (0,  1),   4: (1,  1),
+            5: (-2,  0),   6: (-1,  0),   7: (0,  0),   8: (1,  0),   9: (2, 0),
+                         'A': (-1, -1), 'B': (0, -1), 'C': (1, -1),
+                                        'D': (0, -2)}
+
+def get_key(direction, key, keypad, keypad_len):
+    (x, y) = keypad[key]
+    if direction == 'U':
+        y += 1
+    elif direction == 'D':
+        y -= 1
+    elif direction == 'L':
+        x -= 1
+    elif direction == 'R':
+        x += 1
+    if keypad_len == 9 and -2 < x < 2 and -2 < y < 2 or keypad_len == 13 and abs(x) + abs(y) < 3:
+        key = next(k for k, v in keypad.items() if v == (x, y))
+    return key 
+
+def get_code(instructions, keypad, keypad_len):
+    code = ''
+    key = 5
+    for instruction in instructions:
+        for direction in instruction:
+            key = get_key(direction, key, keypad, keypad_len)
+        code += str(key)
+    return code
+
 #Part 1
 
-code = ''
-key = 5
-for instruction in instructions:
-    for direction in instruction:
-        if key == 1:
-            if direction == 'D':
-                key = 4
-            elif direction == 'R':
-                key = 2
-        elif key == 2:
-            if direction == 'D':
-                key = 5
-            elif direction == 'L':
-                key = 1
-            elif direction == 'R':
-                key = 3
-        elif key == 3:
-            if direction == 'D':
-                key = 6
-            elif direction == 'L':
-                key = 2
-        elif key == 4:
-            if direction == 'U':
-                key = 1
-            elif direction == 'D':
-                key = 7
-            elif direction == 'R':
-                key = 5
-        elif key == 5:
-            if direction == 'U':
-                key = 2
-            elif direction == 'D':
-                key = 8
-            elif direction == 'L':
-                key = 4
-            elif direction == 'R':
-                key = 6
-        elif key == 6:
-            if direction == 'U':
-                key = 3
-            elif direction == 'D':
-                key = 9
-            elif direction == 'L':
-                key = 5
-        elif key == 7:
-            if direction == 'U':
-                key = 4
-            elif direction == 'R':
-                key = 8
-        elif key == 8:
-            if direction == 'U':
-                key = 5
-            elif direction == 'L':
-                key = 7
-            elif direction == 'R':
-                key = 9
-        else:
-            if direction == 'U':
-                key = 6
-            elif direction == 'L':
-                key = 8
-    code += str(key)
-
-print(code)
+print(get_code(instructions, keypad_1, len(keypad_1)))
 
 #Part 2
 
-code = ''
-key = 5
-for instruction in instructions:
-    for direction in instruction:
-        if key == 1:
-            if direction == 'D':
-                key = 3
-        elif key == 2:
-            if direction == 'D':
-                key = 6
-            elif direction == 'R':
-                key = 3
-        elif key == 3:
-            if direction == 'U':
-                key = 1
-            elif direction == 'D':
-                key = 7
-            elif direction == 'L':
-                key = 2
-            elif direction == 'R':
-                key = 4
-        elif key == 4:
-            if direction == 'D':
-                key = 8
-            elif direction == 'L':
-                key = 3
-        elif key == 5:
-            if direction == 'R':
-                key = 6
-        elif key == 6:
-            if direction == 'U':
-                key = 2
-            elif direction == 'D':
-                key = 'A'
-            elif direction == 'L':
-                key = 5
-            elif direction == 'R':
-                key = 7
-        elif key == 7:
-            if direction == 'U':
-                key = 3
-            elif direction == 'D':
-                key = 'B'
-            elif direction == 'L':
-                key = 6
-            elif direction == 'R':
-                key = 8
-        elif key == 8:
-            if direction == 'U':
-                key = 4
-            elif direction == 'D':
-                key = 'C'
-            elif direction == 'L':
-                key = 7
-            elif direction == 'R':
-                key = 9
-        elif key == 9:
-            if direction == 'L':
-                key = 8
-        elif key == 'A':
-            if direction == 'U':
-                key = 6
-            elif direction == 'R':
-                key = 'B'
-        elif key == 'B':
-            if direction == 'U':
-                key = 7
-            elif direction == 'D':
-                key = 'D'
-            elif direction == 'L':
-                key = 'A'
-            elif direction == 'R':
-                key = 'C'
-        elif key == 'C':
-            if direction == 'U':
-                key = 8
-            elif direction == 'L':
-                key = 'B'
-        else:
-            if direction == 'U':
-                key = 'B'
-    code += str(key)
-
-print(code)
+print(get_code(instructions, keypad_2, len(keypad_2)))
