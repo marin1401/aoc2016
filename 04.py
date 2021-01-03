@@ -23,8 +23,8 @@ print(id_sum)
 
 for k, v in real_rooms.items():
     decrypted = ''
-    for i in range(len(k)):
-        decrypted += chr((ord(k[i]) + v[0] - 97) % 26 + 97)
+    for key in k:
+        decrypted += chr((ord(key) + v[0] - 97) % 26 + 97)
     if 'northpole' in decrypted:
         print(v[0])
         break
