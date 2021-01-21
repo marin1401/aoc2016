@@ -3,7 +3,7 @@
 with open('./06.txt') as myinput:
     messages = myinput.readlines()
 
-all_letters = [[message.strip()[letter] for message in messages] for letter in range(len(messages[-1]))]
+all_letters = [[message.strip()[letter_position] for message in messages] for letter_position in range(len(messages[-1]))]
 letters_freq = [[(letters.count(letter), letter) for letter in set(letters)] for letters in all_letters]
 
 #Part 1
