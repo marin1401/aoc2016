@@ -17,7 +17,7 @@ for ip_address in ip_addresses:
                     condition.add(True)
                 else:
                     condition.add(False)
-    counter = counter + 1 if condition == {True} else counter
+    counter += condition == {True}
 
 print(counter)
 
@@ -33,6 +33,6 @@ for ip_address in ip_addresses:
                     supernet.add(a + b + c)
                 else:
                     hypernet.add(a + b + c)
-    counter = counter + 1 if any(aba for aba in supernet if aba[1]+aba[0]+aba[1] in hypernet) else counter
+    counter += any(aba for aba in supernet if aba[1]+aba[0]+aba[1] in hypernet)
 
 print(counter)
